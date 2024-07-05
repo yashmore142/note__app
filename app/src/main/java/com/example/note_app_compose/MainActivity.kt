@@ -36,11 +36,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.note_app_compose.screen.AddNoteScreen
 import com.example.note_app_compose.screen.NoteListScreen
+import com.example.note_app_compose.screen.UpdateNoteScreen
 import com.example.note_app_compose.ui.theme.Note_App_ComposeTheme
 import com.example.note_app_compose.viewmodel.NoteViewModel
 
@@ -65,16 +68,26 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun navigation(mViewModel: NoteViewModel){
+fun navigation(mViewModel: NoteViewModel) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination =  "note_list"){
+    NavHost(navController = navController, startDestination = "note_list") {
 
-        composable("note_list"){
-            NoteListScreen(mViewModel,navController)
+        composable("note_list") {
+            NoteListScreen(mViewModel, navController)
         }
-        composable("add_note"){
-            AddNoteScreen(mViewModel,navController)
+        composable("add_note") {
+            AddNoteScreen(mViewModel, navController)
+        }
+        composable("update_note/{note_id}", arguments = listOf(
+            navArgument("note_id")
+            { type = NavType.IntType }
+        )) {
+            val noteId = it.arguments?.getInt("note_id")
+
+            if (noteId != null) {
+                UpdateNoteScreen(noteId,mViewModel, navController)
+            }
         }
     }
 }
