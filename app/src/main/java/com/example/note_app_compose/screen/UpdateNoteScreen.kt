@@ -45,6 +45,7 @@ fun UpdateNoteScreen(noteId: Int, mViewModel: NoteViewModel, navController: NavC
 
     var title by remember { mutableStateOf("") }
     var noteid = 0
+    var pin = false
     var description by remember { mutableStateOf("") }
     var backGroundColor by remember { mutableStateOf(R.color.white) }
 
@@ -56,6 +57,7 @@ fun UpdateNoteScreen(noteId: Int, mViewModel: NoteViewModel, navController: NavC
             title = it.title
             description = it.description
             backGroundColor = it.color
+            pin = it.pin
         }
     }
     Box(
@@ -86,7 +88,8 @@ fun UpdateNoteScreen(noteId: Int, mViewModel: NoteViewModel, navController: NavC
                             title,
                             description,
                             backGroundColor,
-                            System.currentTimeMillis()
+                            System.currentTimeMillis(),
+                            pin
                         )
 
                         mViewModel.updateNote(note)

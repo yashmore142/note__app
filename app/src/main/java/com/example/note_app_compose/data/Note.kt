@@ -11,5 +11,6 @@ data class Note(
     var title: String,
     var description: String,
     var color: Int = 0,
-    var createdAt: Long
+    var createdAt: Long,
+    var pin: Boolean = false
 )

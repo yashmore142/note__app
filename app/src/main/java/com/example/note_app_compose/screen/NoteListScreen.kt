@@ -2,11 +2,14 @@ package com.example.note_app_compose.screen
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -93,6 +96,7 @@ fun NoteListScreen(mViewModel: NoteViewModel, navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavController) {
@@ -100,9 +104,19 @@ fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavControl
         modifier = Modifier
             .fillMaxSize()
             .padding(5.dp)
-            .clickable {
-                       navController.navigate("update_note/${note.id}")
-            },
+            .combinedClickable(
+                onDoubleClick = {
+                    if (note.pin) {
+                        note.pin = false
+                    } else {
+                        note.pin = true
+                    }
+                    noteViewModel.updateNote(note)
+                },
+                onClick = {
+                    navController.navigate("update_note/${note.id}")
+                }
+            ),
         shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(
             colorResource(id = note.color)
@@ -127,15 +141,33 @@ fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavControl
                 fontSize = 18.sp
             )
 
-            Icon(
-                Icons.Default.Delete,
-                contentDescription = null,
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .clickable {
-                        noteViewModel.deleteNote(note)
-                    }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Icon(
+                    if (note.pin) {
+                        painterResource(id = R.drawable.baseline_favorite_24)
+                    } else {
+                        painterResource(id = R.drawable.iv_fav)
+
+                    },
+                    contentDescription = null,
+
+
+                )
+                Icon(
+                    Icons.Default.Delete,
+                    contentDescription = null,
+                    modifier = Modifier
+
+                        .clickable {
+                            noteViewModel.deleteNote(note)
+                        }
+                )
+            }
+
         }
     }
 }
