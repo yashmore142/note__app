@@ -83,19 +83,19 @@ fun navigation(mViewModel: NoteViewModel, sessionManager: SessionManager) {
             )
         }
 
-        composable("note_list") {
+        composable(NavRoutes.NOTE_LIST) {
             NoteListScreen(
                 mViewModel,
                 navController
             )
         }
-        composable("add_note") {
+        composable(NavRoutes.ADD_NOTE) {
             AddNoteScreen(
                 mViewModel,
                 navController
             )
         }
-        composable("update_note/{note_id}", arguments = listOf(navArgument("note_id") {
+        composable(NavRoutes.UPDATE_NOTE, arguments = listOf(navArgument("note_id") {
             type = NavType.IntType
         })) {
             val noteId = it.arguments?.getInt("note_id")

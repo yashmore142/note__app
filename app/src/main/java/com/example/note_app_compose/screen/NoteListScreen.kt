@@ -97,7 +97,6 @@ fun NoteListScreen(mViewModel: NoteViewModel, navController: NavController) {
 }
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavController) {
     Card(

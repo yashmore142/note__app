@@ -1,7 +1,6 @@
 package com.example.authui
 
 
-
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -45,9 +44,12 @@ fun LoginScreen(onNavigateToSignup: () -> Unit, onLoginSuccess: () -> Unit) {
                     onLoginSuccess()
                 }
             }
+
             is AuthState.Error -> {
-                Toast.makeText(context, (state as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, (state as AuthState.Error).message, Toast.LENGTH_SHORT)
+                    .show()
             }
+
             else -> {}
         }
     }
@@ -90,7 +92,7 @@ fun LoginScreen(onNavigateToSignup: () -> Unit, onLoginSuccess: () -> Unit) {
                     trailingIcon = {
                         IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                             Icon(
-                             painter = painterResource(id = if (isPasswordVisible) R.drawable.visible else R.drawable.invisible),
+                                painter = painterResource(id = if (isPasswordVisible) R.drawable.visible else R.drawable.invisible),
                                 contentDescription = null
                             )
                         }
