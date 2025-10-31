@@ -106,12 +106,7 @@ fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavControl
             .padding(5.dp)
             .combinedClickable(
                 onDoubleClick = {
-                    if (note.pin) {
-                        note.pin = false
-                    } else {
-                        note.pin = true
-                    }
-                    noteViewModel.updateNote(note)
+
                 },
                 onClick = {
                     navController.navigate("update_note/${note.id}")
@@ -155,7 +150,14 @@ fun NoteItem(note: Note, noteViewModel: NoteViewModel, navController: NavControl
                     },
                     contentDescription = null,
 
-
+                    modifier = Modifier.clickable {
+                        if (note.pin) {
+                            note.pin = false
+                        } else {
+                            note.pin = true
+                        }
+                        noteViewModel.updateNote(note)
+                    }
                 )
                 Icon(
                     Icons.Default.Delete,

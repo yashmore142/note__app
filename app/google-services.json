@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1048646629264",
+    "project_id": "mystic-truck-356614",
+    "storage_bucket": "mystic-truck-356614.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048646629264:android:335943c0a71e8b96cca515",
+        "android_client_info": {
+          "package_name": "com.example.note_app_compose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6O2y9vUlujUnE9TwZkC0VXm3oXYef1Mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

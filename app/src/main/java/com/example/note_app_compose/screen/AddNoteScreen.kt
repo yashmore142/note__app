@@ -1,8 +1,10 @@
 package com.example.note_app_compose.screen
 
 import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -92,6 +94,9 @@ fun AddNoteScreen(mViewModel: NoteViewModel, navController: NavController) {
 
             }
 
+            // Keep track of selected color ID
+            var selectedColor by remember { mutableStateOf<Int?>(null) }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,49 +104,30 @@ fun AddNoteScreen(mViewModel: NoteViewModel, navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(
-                            color = colorResource(id = R.color.purple_200),
-                            shape = CircleShape
-                        )
-                        .clickable {
-                            backGroundColor = R.color.purple_200
-                        }
+                val colors = listOf(
+                    R.color.purple_200,
+                    R.color.teal_700,
+                    R.color.teal_200,
+                    R.color.yellow,
+                    R.color.pink
                 )
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(color = colorResource(id = R.color.white), shape = CircleShape)
-                        .clickable {
-                            backGroundColor = R.color.white
-                        }
-                )
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(color = colorResource(id = R.color.teal_200), shape = CircleShape)
-                        .clickable {
-                            backGroundColor = R.color.teal_200
-                        }
-                )
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(color = colorResource(id = R.color.yellow), shape = CircleShape)
-                        .clickable {
-                            backGroundColor = R.color.yellow
-                        }
-                )
-                Box(
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(color = colorResource(id = R.color.pink), shape = CircleShape)
-                        .clickable {
-                            backGroundColor = R.color.pink
-                        }
-                )
+
+                colors.forEach { colorId ->
+                    val color = colorResource(id = colorId)
+                    val borderWidth by animateDpAsState(
+                        targetValue = if (selectedColor == colorId) 3.dp else 0.dp,
+                        label = ""
+                    )
+                    Box(
+                        modifier = Modifier
+                            .size(50.dp)
+                            .background(color = color, shape = CircleShape)
+                            .border(borderWidth, Color.Black, CircleShape)
+                            .clickable { selectedColor = colorId
+                                backGroundColor = colorId}
+                    )
+
+                }
             }
             OutlinedTextField(
                 value = title, onValueChange = { title = it },
