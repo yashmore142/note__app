@@ -41,13 +41,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.note_app_compose.data.Note
+import com.example.note_app_compose.viewmodel.AuthViewModel
 import com.example.note_app_compose.viewmodel.NoteViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun NoteListScreen(mViewModel: NoteViewModel, navController: NavController) {
+fun NoteListScreen(
+    navController: NavController,mViewModel: NoteViewModel = hiltViewModel()
+) {
     var list by remember { mutableStateOf<List<Note>>(emptyList()) }
 
     val lifecycle = LocalLifecycleOwner.current

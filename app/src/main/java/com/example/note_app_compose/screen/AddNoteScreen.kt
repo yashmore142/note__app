@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.note_app_compose.R
 import com.example.note_app_compose.data.Note
@@ -46,7 +47,7 @@ import com.example.note_app_compose.viewmodel.NoteViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun AddNoteScreen(mViewModel: NoteViewModel, navController: NavController) {
+fun AddNoteScreen( navController: NavController,mViewModel: NoteViewModel = hiltViewModel()) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var backGroundColor by remember { mutableStateOf(R.color.white) }

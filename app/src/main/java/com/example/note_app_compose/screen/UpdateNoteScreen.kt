@@ -33,6 +33,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.note_app_compose.R
 import com.example.note_app_compose.data.Note
@@ -40,7 +41,7 @@ import com.example.note_app_compose.viewmodel.NoteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpdateNoteScreen(noteId: Int, mViewModel: NoteViewModel, navController: NavController) {
+fun UpdateNoteScreen(noteId: Int, navController: NavController,mViewModel: NoteViewModel = hiltViewModel()) {
 
 
     var title by remember { mutableStateOf("") }

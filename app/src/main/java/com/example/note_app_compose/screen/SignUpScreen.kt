@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.note_app_compose.R
 import com.example.note_app_compose.constant.AuthState
@@ -23,10 +24,11 @@ import com.example.note_app_compose.sessionmanager.SessionManager
 import com.example.note_app_compose.viewmodel.AuthViewModel
 
 @Composable
-fun SignupScreen(onNavigateToLogin: () -> Unit, onSignupSuccess: () -> Unit) {
+fun SignupScreen(onNavigateToLogin: () -> Unit, onSignupSuccess: () -> Unit,
+                 viewModel: AuthViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
     val sessionManager = remember { SessionManager(context) }
-    val viewModel: AuthViewModel = viewModel()
     val state by viewModel.authState.collectAsState()
 
     var email by remember { mutableStateOf("") }

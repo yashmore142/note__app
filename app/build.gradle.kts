@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -89,5 +90,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-compiler:2.51.1")
+
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 }

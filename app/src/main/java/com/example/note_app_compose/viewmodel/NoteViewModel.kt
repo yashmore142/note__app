@@ -3,25 +3,22 @@ package com.example.note_app_compose.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.note_app_compose.data.Note
 import com.example.note_app_compose.db.NoteDataBase
 import com.example.note_app_compose.repository.NoteDataRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel(application: Application) : AndroidViewModel(application) {
-
-     val getAllNotes: LiveData<List<Note>>
-     var getSingleNote: LiveData<Note>? = null
+@HiltViewModel
+class NoteViewModel @Inject constructor(
     private val repository: NoteDataRepository
-
-    init {
-        val dataDao = NoteDataBase.getDataBase(application).noteDao()
-        repository = NoteDataRepository(dataDao)
-        getAllNotes = repository.getAllNotes
-       // getSingleNote = repository.singleData!!
-    }
+) : ViewModel() {
+    val getAllNotes = repository.getAllNotes
+    var getSingleNote: LiveData<Note>? = null
 
     fun addNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {

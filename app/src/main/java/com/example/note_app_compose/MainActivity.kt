@@ -24,7 +24,9 @@ import com.example.note_app_compose.sessionmanager.SessionManager
 import com.example.note_app_compose.ui.theme.Note_App_ComposeTheme
 import com.example.note_app_compose.viewmodel.NoteViewModel
 import com.google.firebase.FirebaseApp
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private var mViewModel: NoteViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,13 +87,12 @@ fun navigation(mViewModel: NoteViewModel, sessionManager: SessionManager) {
 
         composable(NavRoutes.NOTE_LIST) {
             NoteListScreen(
-                mViewModel,
                 navController
+
             )
         }
         composable(NavRoutes.ADD_NOTE) {
             AddNoteScreen(
-                mViewModel,
                 navController
             )
         }
@@ -100,7 +101,7 @@ fun navigation(mViewModel: NoteViewModel, sessionManager: SessionManager) {
         })) {
             val noteId = it.arguments?.getInt("note_id")
             if (noteId != null) {
-                UpdateNoteScreen(noteId, mViewModel, navController)
+                UpdateNoteScreen(noteId,navController)
 
 
             }
